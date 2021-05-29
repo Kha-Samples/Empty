@@ -1,4 +1,4 @@
-name: iOS
+name: Linux (Vulkan)
 
 on:
   push:
@@ -11,10 +11,14 @@ on:
 jobs:
   build:
 
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v1
+    - name: Apt Update
+      run: sudo apt-get update
+    - name: Apt Install
+      run: sudo apt-get install libasound2-dev libxinerama-dev libxrandr-dev libgl1-mesa-dev libxi-dev libxcursor-dev libudev-dev libvulkan-dev --yes --quiet
     - name: Get Submodules
       run: git submodule update --init --recursive
     - name: Get Node.js
@@ -22,4 +26,4 @@ jobs:
     - name: Setup Node.js
       run: nodejs_bin/copysysbin.sh
     - name: Compile
-      run: nodejs_bin/node Kha/make ios --nosigning --compile
+      run: nodejs_bin/node Kha/make -g vulkan --compile
