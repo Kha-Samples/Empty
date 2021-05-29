@@ -1,4 +1,4 @@
-let project = new Project('Empty');
+const project = new Project('Empty');
 
 project.addSources('Sources');
 
